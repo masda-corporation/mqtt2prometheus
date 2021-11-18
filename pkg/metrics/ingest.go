@@ -2,10 +2,11 @@ package metrics
 
 import (
 	"fmt"
+
 	"go.uber.org/zap"
 
-	"github.com/eclipse/paho.mqtt.golang"
-	"github.com/hikhvar/mqtt2prometheus/pkg/config"
+	mqtt "github.com/eclipse/paho.mqtt.golang"
+	"github.com/masda-corporation/mqtt2prometheus/pkg/config"
 )
 
 type Ingest struct {

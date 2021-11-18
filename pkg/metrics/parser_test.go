@@ -1,11 +1,12 @@
 package metrics
 
 import (
-	"github.com/hikhvar/mqtt2prometheus/pkg/config"
-	"github.com/prometheus/client_golang/prometheus"
 	"reflect"
 	"testing"
 	"time"
+
+	"github.com/masda-corporation/mqtt2prometheus/pkg/config"
+	"github.com/prometheus/client_golang/prometheus"
 )
 
 func TestParser_parseMetric(t *testing.T) {

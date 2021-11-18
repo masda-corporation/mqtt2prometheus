@@ -1,11 +1,13 @@
+//go:build gofuzz
 // +build gofuzz
 
 package metric_per_topic
 
 import (
 	"fmt"
-	"github.com/hikhvar/mqtt2prometheus/pkg/config"
-	"github.com/hikhvar/mqtt2prometheus/pkg/metrics"
+
+	"github.com/masda-corporation/mqtt2prometheus/pkg/config"
+	"github.com/masda-corporation/mqtt2prometheus/pkg/metrics"
 )
 
 func Fuzz(data []byte) int {

@@ -1,0 +1,17 @@
+image: docker:stable
+
+variables:
+  DOCKER_IMAGE: docker-registry.ata/eletric/mqtt2prometheus
+
+services:
+  - name: docker:dind
+    command: ["--insecure-registry", "docker-registry.ata"]
+
+build:
+  stage: build
+  script:
+    - docker info
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN docker-registry.ata
+    - docker pull $DOCKER_IMAGE || true
+    - docker build --cache-from $DOCKER_IMAGE -t $DOCKER_IMAGE .
+    - docker push $DOCKER_IMAGE

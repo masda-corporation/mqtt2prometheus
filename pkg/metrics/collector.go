@@ -2,11 +2,12 @@ package metrics
 
 import (
 	"fmt"
-	"github.com/hikhvar/mqtt2prometheus/pkg/config"
+	"time"
+
+	"github.com/masda-corporation/mqtt2prometheus/pkg/config"
 	gocache "github.com/patrickmn/go-cache"
 	"github.com/prometheus/client_golang/prometheus"
 	"go.uber.org/zap"
-	"time"
 )
 
 type Collector interface {

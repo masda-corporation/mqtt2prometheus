@@ -3,9 +3,11 @@ package metrics
 import (
 	"errors"
 	"fmt"
-	"github.com/hikhvar/mqtt2prometheus/pkg/config"
 	"strconv"
+	"strings"
 	"time"
+
+	"github.com/masda-corporation/mqtt2prometheus/pkg/config"
 )
 
 type metricNotConfiguredError error
@@ -36,22 +38,30 @@ func (p *Parser) config() map[string][]config.MetricConfig {
 
 // validMetric returns config matching the metric and deviceID
 // Second return value indicates if config was found.
-func (p *Parser) validMetric(metric string, deviceID string) (config.MetricConfig, bool) {
-	for _, c := range p.metricConfigs[metric] {
-		if c.SensorNameFilter.Match(deviceID) {
-			return c, true
-		}
+// func (p *Parser) validMetric(metric string, deviceID string) (config.MetricConfig, bool) {
+// 	for _, c := range p.metricConfigs[metric] {
+// 		if c.SensorNameFilter.Match(deviceID) {
+// 			return c, true
+// 		}
+// 	}
+// 	return config.MetricConfig{}, false
+// }
+
+func (p *Parser) genMetric(metric string, deviceID string) config.MetricConfig {
+	return config.MetricConfig{
+		PrometheusName: "metric_" + strings.Replace(metric, "/", "_", -1),
+		ValueType:      "gauge",
 	}
-	return config.MetricConfig{}, false
 }
 
 // parseMetric parses the given value according to the given deviceID and metricPath. The config allows to
 // parse a metric value according to the device ID.
 func (p *Parser) parseMetric(metricPath string, deviceID string, value interface{}) (Metric, error) {
-	cfg, cfgFound := p.validMetric(metricPath, deviceID)
-	if !cfgFound {
-		return Metric{}, metricNotConfigured
-	}
+	// cfg, cfgFound := p.validMetric(metricPath, deviceID)
+	cfg := p.genMetric(metricPath, deviceID)
+	// if !cfgFound {
+	// 	return Metric{}, metricNotConfigured
+	// }
 
 	var metricValue float64
 

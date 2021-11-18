@@ -1,10 +1,11 @@
+//go:build gofuzz
 // +build gofuzz
 
 package json
 
 import (
-	"github.com/hikhvar/mqtt2prometheus/pkg/config"
-	"github.com/hikhvar/mqtt2prometheus/pkg/metrics"
+	"github.com/masda-corporation/mqtt2prometheus/pkg/config"
+	"github.com/masda-corporation/mqtt2prometheus/pkg/metrics"
 )
 
 func Fuzz(data []byte) int {

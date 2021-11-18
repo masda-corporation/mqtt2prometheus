@@ -3,7 +3,8 @@ package metrics
 import (
 	"errors"
 	"fmt"
-	"github.com/hikhvar/mqtt2prometheus/pkg/config"
+
+	"github.com/masda-corporation/mqtt2prometheus/pkg/config"
 	gojsonq "github.com/thedevsaddam/gojsonq/v2"
 )
 
