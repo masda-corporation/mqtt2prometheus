@@ -13,7 +13,6 @@ type Extractor func(topic string, payload []byte, deviceID string) (MetricCollec
 func NewJSONObjectExtractor(p Parser) Extractor {
 	return func(topic string, payload []byte, deviceID string) (MetricCollection, error) {
 		var mc MetricCollection
-		// parsed := gojsonq.New().FromString(string(payload))
 
 		rcv_metrics := make(map[string]interface{})
 		err := json.Unmarshal(payload, &rcv_metrics)
@@ -31,19 +30,6 @@ func NewJSONObjectExtractor(p Parser) Extractor {
 			mc = append(mc, m)
 		}
 
-		// for path := range p.config() {
-		// 	rawValue := parsed.Find(path)
-		// 	parsed.Reset()
-		// 	if rawValue == nil {
-		// 		continue
-		// 	}
-		// 	m, err := p.parseMetric(path, deviceID, rawValue)
-		// 	if err != nil {
-		// 		return nil, fmt.Errorf("failed to parse valid metric value: %w", err)
-		// 	}
-		// 	m.Topic = topic
-		// 	mc = append(mc, m)
-		// }
 		return mc, nil
 	}
 }
