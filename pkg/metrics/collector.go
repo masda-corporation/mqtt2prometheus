@@ -41,6 +41,7 @@ func NewCollector(defaultTimeout time.Duration, possibleMetrics []config.MetricC
 	for _, m := range possibleMetrics {
 		descs = append(descs, m.PrometheusDescription())
 	}
+	fmt.Println("duration: %s", defaultTimeout)
 	return &MemoryCachedCollector{
 		cache:        gocache.New(defaultTimeout, defaultTimeout*10),
 		descriptions: descs,
