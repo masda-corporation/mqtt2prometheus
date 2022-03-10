@@ -78,7 +78,6 @@ func (c *MemoryCachedCollector) Collect(mc chan<- prometheus.Metric) {
 			device,
 			metric.Topic,
 		)
-		// mc <- prometheus.NewMetricWithTimestamp(metric.IngestTime, m)
-		mc <- prometheus.NewMetricWithTimestamp(time.Now(), m)
+		mc <- prometheus.NewMetricWithTimestamp(metric.IngestTime, m)
 	}
 }
