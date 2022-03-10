@@ -41,7 +41,6 @@ func NewCollector(defaultTimeout time.Duration, possibleMetrics []config.MetricC
 	for _, m := range possibleMetrics {
 		descs = append(descs, m.PrometheusDescription())
 	}
-	fmt.Println("duration: %s", defaultTimeout)
 	return &MemoryCachedCollector{
 		cache:        gocache.New(defaultTimeout, defaultTimeout*10),
 		descriptions: descs,
@@ -79,7 +78,7 @@ func (c *MemoryCachedCollector) Collect(mc chan<- prometheus.Metric) {
 			device,
 			metric.Topic,
 		)
-		mc <- prometheus.NewMetricWithTimestamp(metric.IngestTime, m)
-
+		// mc <- prometheus.NewMetricWithTimestamp(metric.IngestTime, m)
+		mc <- prometheus.NewMetricWithTimestamp(time.Now(), m)
 	}
 }
